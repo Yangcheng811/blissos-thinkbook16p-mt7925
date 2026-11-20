@@ -1,0 +1,7 @@
+*.iso
+*.part*
+*.key
+*.pem
+release_assets/
+.DS_Store
+Thumbs.db
