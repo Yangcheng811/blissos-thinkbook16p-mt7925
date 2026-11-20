@@ -56,10 +56,18 @@
 - `SHA256SUMS.txt`
 - `BLISS_MOK.cer`
 
-将两个分卷下载到同一目录后合并：
+将两个分卷下载到同一目录后，放入对应平台的一键合并校验脚本直接运行即可：
 
-### Windows (CMD / PowerShell)
-双击本仓库的 [`scripts/merge_iso.bat`](scripts/merge_iso.bat)，或在 CMD 中执行：
+| 平台 / Platform | 脚本文件 / Script | 使用方式 / Usage |
+| :--- | :--- | :--- |
+| **Windows (CMD)** | [`scripts/merge_iso.bat`](scripts/merge_iso.bat) | 放入分卷同目录后直接**双击运行**（自动合并 + SHA-256 校验） |
+| **Windows (PowerShell)** | [`scripts/merge_iso.ps1`](scripts/merge_iso.ps1) | 放入分卷同目录，右键「使用 PowerShell 运行」或执行 `powershell -ExecutionPolicy Bypass -File .\merge_iso.ps1` |
+| **Linux** | [`scripts/merge_iso_linux.sh`](scripts/merge_iso_linux.sh) | 放入分卷同目录后执行 `bash merge_iso_linux.sh` |
+| **macOS** | [`scripts/merge_iso_macos.command`](scripts/merge_iso_macos.command) | 放入分卷同目录，在终端执行 `chmod +x merge_iso_macos.command` 后可在访达中直接**双击运行** |
+
+也可手动运行命令合并：
+
+### Windows (CMD)
 ```bat
 copy /b Bliss-v16.9.7-x86_64-ThinkBook16p-MT7925-k6.12.iso.partaa + Bliss-v16.9.7-x86_64-ThinkBook16p-MT7925-k6.12.iso.partab Bliss-v16.9.7-x86_64-ThinkBook16p-MT7925-k6.12.iso
 certutil -hashfile Bliss-v16.9.7-x86_64-ThinkBook16p-MT7925-k6.12.iso SHA256
@@ -68,7 +76,7 @@ certutil -hashfile Bliss-v16.9.7-x86_64-ThinkBook16p-MT7925-k6.12.iso SHA256
 ### Linux / macOS
 ```bash
 cat Bliss-v16.9.7-x86_64-ThinkBook16p-MT7925-k6.12.iso.part* > Bliss-v16.9.7-x86_64-ThinkBook16p-MT7925-k6.12.iso
-sha256sum -c SHA256SUMS.txt
+sha256sum -c SHA256SUMS.txt   # macOS 请使用 shasum -a 256 -c SHA256SUMS.txt
 ```
 
 ---
